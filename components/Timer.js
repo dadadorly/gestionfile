@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {View, Text, Button, StyleSheet, TouchableOpacity} from "react-native";
 
 
@@ -27,13 +27,15 @@ const Timer = ()=>{
 
         return `${getHours} : ${getMinutes} : ${getSeconds}`
     }
-
+    useEffect(()=>{
+        handleStart()
+    },[])
     return(
         <View>
 
-            <TouchableOpacity style={styles.textTime} onPress={() => handleStart()}>
+            <View style={styles.textTime}>
                 <Text> {formatTime()}</Text>
-            </TouchableOpacity>
+            </View>
         </View>
 
 
