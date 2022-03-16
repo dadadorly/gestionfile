@@ -44,7 +44,7 @@ const Timer = ()=>{
 const styles = StyleSheet.create({
     textTime: {
       fontWeight: 'bold',
-        marginTop: 80,
+
     },
 })
 
