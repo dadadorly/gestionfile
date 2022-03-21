@@ -33,8 +33,8 @@ const Timer = ()=>{
     return(
         <View>
 
-            <View style={styles.textTime}>
-                <Text> {formatTime()}</Text>
+            <View>
+                <Text style={styles.textTime}> {formatTime()}</Text>
             </View>
         </View>
 
@@ -43,8 +43,8 @@ const Timer = ()=>{
 }
 const styles = StyleSheet.create({
     textTime: {
-      fontWeight: 'bold',
-
+      fontWeight: '700',
+        color : '#0782F9',
     },
 })
 
