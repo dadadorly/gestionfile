@@ -5,6 +5,7 @@ import {auth} from '../firebase-config'
 import {useNavigation} from "@react-navigation/native";
 
 
+
 const Login = () => {
     const [email, setEmail]= useState('')
     const [password, setPassword]= useState('')
@@ -39,9 +40,16 @@ const Login = () => {
             .catch(error => alert(error.message))
     }
 
+
     return (
+
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            {/*<TouchableOpacity onPress={() => navigation.goBack()} style={styles.buttonGoBack}>
+                <Text style={styles.buttonGoBackText}>Go BACK</Text>
+            </TouchableOpacity>*/}
+
             <View style={styles.inputContainer}>
+
                 <TextInput placeholder={"Email"} value={email} onChangeText={text => setEmail(text)} style={styles.input}/>
                 <TextInput placeholder={"Password"} value={password} onChangeText={text => setPassword(text)} style={styles.input} secureTextEntry />
 
@@ -57,6 +65,9 @@ const Login = () => {
             </View>
 
         </KeyboardAvoidingView>
+
+
+
     )
 
 }
@@ -123,6 +134,26 @@ const styles = StyleSheet.create({
     },
     buttonOutlineText:{
             color : '#0782F9',
+        fontWeight: '700',
+        fontSize: 16,
+    },
+    buttonGoBack:{
+        backgroundColor : '#0782F9',
+        width: '25%',
+        padding: 15,
+        borderRadius: 10,
+
+
+        borderColor: '#0782F9',
+        borderWidth: 2,
+        alignItems:'center',
+
+        position : "absolute",
+        bottom : 80,
+
+    },
+    buttonGoBackText:{
+        color : 'white',
         fontWeight: '700',
         fontSize: 16,
     }

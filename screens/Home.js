@@ -13,10 +13,14 @@ import {
 
 import React, {useEffect,useState} from 'react';
 import Personne from "components/Personne";
+import {useNavigation} from "@react-navigation/native";
 
 
 
 const Home=() =>{
+
+
+    const navigation = useNavigation()
 
 
     const [person, setPerson]=useState();
@@ -40,6 +44,9 @@ const Home=() =>{
         <View style={styles.container}>
 
             <Text style={styles.title}>Gestion de file</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.buttonLogin}>
+                <Text style={styles.buttonLoginText}>Login</Text>
+            </TouchableOpacity>
             <ScrollView>
                 <View style={styles.personWrapper}>
                     <View style={styles.items}>
@@ -85,6 +92,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E8EAED',
         // alignItems: 'center',
         // justifyContent: 'center',
+        position : "relative"
     },
     title: {
         paddingTop: 60,
@@ -129,5 +137,24 @@ const styles = StyleSheet.create({
         borderWidth: 1,
 
     },
-    addText: {},
+    buttonLogin: {
+
+        position:"absolute",
+        top: 50,
+        right : 10,
+        backgroundColor : '#0782F9',
+        width: '20%',
+        padding: 15,
+        borderRadius: 10,
+
+
+        borderColor: '#0782F9',
+        borderWidth: 2,
+        alignItems:'center',
+    },
+    buttonLoginText: {
+        color : 'white',
+        fontWeight: '700',
+        fontSize: 16,
+    }
 });
