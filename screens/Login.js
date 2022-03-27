@@ -11,11 +11,13 @@ const Login = () => {
     const [password, setPassword]= useState('')
 
     const navigation = useNavigation()
+    let isAdmin = false;
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
-                navigation.navigate("Home")
+                isAdmin=true;
+                navigation.navigate("Home");
             }
         })
         return unsubscribe
@@ -44,9 +46,9 @@ const Login = () => {
     return (
 
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            {/*<TouchableOpacity onPress={() => navigation.goBack()} style={styles.buttonGoBack}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.buttonGoBack}>
                 <Text style={styles.buttonGoBackText}>Go BACK</Text>
-            </TouchableOpacity>*/}
+            </TouchableOpacity>
 
             <View style={styles.inputContainer}>
 

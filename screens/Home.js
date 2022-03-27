@@ -11,9 +11,11 @@ import {
     Keyboard
 } from 'react-native';
 
-import React, {useEffect,useState} from 'react';
+import React, {useState} from 'react';
 import Personne from "components/Personne";
 import {useNavigation} from "@react-navigation/native";
+import LoginButton from "components/LoginButton";
+import {auth} from '../firebase-config'
 
 
 
@@ -26,16 +28,41 @@ const Home=() =>{
     const [person, setPerson]=useState();
     const [personItems, setPersonItems]= useState([]);
 
+    const [isAdmin, setIsAdmin] =useState(false);
+    let max = 0;
+
     const handleAddPerson = () =>{
         Keyboard.dismiss();
-        setPersonItems([...personItems,person]);
-        setPerson(null);
+        if (auth.currentUser!=null){
+            setIsAdmin(prevState => !prevState);
+        }
+        if( isAdmin==true || max == 0) {
+            setPersonItems([...personItems, person]);
+            setPerson(null);
+
+        }
+
+
+        max=1;
+        console.log(max);
+        console.log(isAdmin);
     }
 
     const handleDeletePerson =(index) => {
+
         let itemsCopy =[...personItems];
         itemsCopy.splice(index,1);
         setPersonItems(itemsCopy);
+    }
+
+    const renderLogin = () =>{
+        if(auth.currentUser!=null){
+            return <Text>SAlut</Text>;
+        }
+        else{
+            return <LoginButton/>;
+
+        }
     }
 
 
@@ -44,9 +71,7 @@ const Home=() =>{
         <View style={styles.container}>
 
             <Text style={styles.title}>Gestion de file</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.buttonLogin}>
-                <Text style={styles.buttonLoginText}>Login</Text>
-            </TouchableOpacity>
+            {renderLogin()}
             <ScrollView>
                 <View style={styles.personWrapper}>
                     <View style={styles.items}>
@@ -90,8 +115,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#E8EAED',
-        // alignItems: 'center',
-        // justifyContent: 'center',
         position : "relative"
     },
     title: {
@@ -137,24 +160,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
 
     },
-    buttonLogin: {
 
-        position:"absolute",
-        top: 50,
-        right : 10,
-        backgroundColor : '#0782F9',
-        width: '20%',
-        padding: 15,
-        borderRadius: 10,
-
-
-        borderColor: '#0782F9',
-        borderWidth: 2,
-        alignItems:'center',
-    },
-    buttonLoginText: {
-        color : 'white',
-        fontWeight: '700',
-        fontSize: 16,
+    addText : {
+        fontSize : 24,
     }
+
 });

@@ -7,24 +7,14 @@ import Timer from "./Timer";
 
 const Personne = (props)=>{
 
-
-
-
     return(
         <View style={styles.item}>
-
-                <Text style={styles.itemText}>{props.text}</Text>
-
-
+            <Text style={styles.itemText}>{props.text}</Text>
             <Timer/>
-
         </View>
-
-
     )
-
-
 }
+
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#fff',
