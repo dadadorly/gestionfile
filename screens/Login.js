@@ -60,10 +60,12 @@ const Login = () => {
                 <TouchableOpacity onPress={() =>  handleLogin()} style={styles.button}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
+                {/*
                 <TouchableOpacity onPress={() =>  handleSignUp()} style={styles.buttonReg}>
 
                     <Text style={styles.buttonOutlineText}>Register</Text>
                 </TouchableOpacity>
+                */}
             </View>
 
         </KeyboardAvoidingView>

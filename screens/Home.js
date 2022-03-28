@@ -19,6 +19,7 @@ import {auth} from '../firebase-config'
 
 
 
+
 const Home=() =>{
 
 
@@ -45,11 +46,15 @@ const Home=() =>{
     }, [])
 
 
-    const handleAddPerson = () =>{
-        Keyboard.dismiss();
-        setPersonItems([...personItems, person]);
-        setPerson(null);
+    const [max, setMax] =useState(0);
 
+    const handleAddPerson = () =>{
+        if(isAdmin==true || max!=1) {
+            Keyboard.dismiss();
+            setPersonItems([...personItems, person]);
+            setPerson(null);
+            setMax(1);
+        }
 
 
     }
