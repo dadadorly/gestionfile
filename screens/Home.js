@@ -11,7 +11,7 @@ import {
     Keyboard
 } from 'react-native';
 
-import React, {useState} from 'react';
+import  {useEffect, useState} from 'react';
 import Personne from "components/Personne";
 import {useNavigation} from "@react-navigation/native";
 import LoginButton from "components/LoginButton";
@@ -29,37 +29,57 @@ const Home=() =>{
     const [personItems, setPersonItems]= useState([]);
 
     const [isAdmin, setIsAdmin] =useState(false);
-    let max = 0;
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+
+
+                setIsAdmin(prevState => !prevState);
+
+
+            }
+
+        })
+        return unsubscribe
+    }, [])
+
 
     const handleAddPerson = () =>{
         Keyboard.dismiss();
-        if (auth.currentUser!=null){
-            setIsAdmin(prevState => !prevState);
-        }
-        if( isAdmin==true || max == 0) {
-            setPersonItems([...personItems, person]);
-            setPerson(null);
-
-        }
+        setPersonItems([...personItems, person]);
+        setPerson(null);
 
 
-        max=1;
-        console.log(max);
-        console.log(isAdmin);
+
     }
 
     const handleDeletePerson =(index) => {
-
-        let itemsCopy =[...personItems];
-        itemsCopy.splice(index,1);
-        setPersonItems(itemsCopy);
+        if(isAdmin==true) {
+            let itemsCopy = [...personItems];
+            itemsCopy.splice(index, 1);
+            setPersonItems(itemsCopy);
+        }
     }
 
+    const changeIsAdmin = () =>{
+        setIsAdmin(prevState => !prevState);
+    }
+    useEffect(()=>{
+        auth.signOut().then(console.log("signed out"))
+        renderLogin();
+    }, [isAdmin])
+
     const renderLogin = () =>{
-        if(auth.currentUser!=null){
-            return <Text>SAlut</Text>;
+        if(isAdmin==true){
+
+            //return <LogoutButton/>;
+            return <TouchableOpacity onPress={() => changeIsAdmin()} style={styles.buttonLogin}>
+                <Text style={styles.buttonLoginText}>Logout</Text>
+            </TouchableOpacity>
         }
         else{
+
             return <LoginButton/>;
 
         }
@@ -160,7 +180,27 @@ const styles = StyleSheet.create({
         borderWidth: 1,
 
     },
+    buttonLogin: {
 
+        position:"absolute",
+        top: 50,
+        right : 10,
+
+        backgroundColor : '#0782F9',
+        width: '25%',
+        padding: 15,
+        borderRadius: 10,
+
+
+        borderColor: '#0782F9',
+        borderWidth: 2,
+        alignItems:'center',
+    },
+    buttonLoginText: {
+        color : 'white',
+        fontWeight: '700',
+        fontSize: 16,
+    },
     addText : {
         fontSize : 24,
     }

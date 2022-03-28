@@ -11,12 +11,12 @@ const Login = () => {
     const [password, setPassword]= useState('')
 
     const navigation = useNavigation()
-    let isAdmin = false;
+
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
-                isAdmin=true;
+
                 navigation.navigate("Home");
             }
         })
@@ -26,7 +26,7 @@ const Login = () => {
         auth.createUserWithEmailAndPassword(email,password)
             .then(userCredentials =>{
                 const user = userCredentials.user;
-                console.log(user.email);
+
                 alert("Vous etes inscrit");
             })
             .catch(error => alert(error.message))
