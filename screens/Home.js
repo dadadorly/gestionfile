@@ -8,7 +8,7 @@ import {
     TextInput,
     TouchableOpacity,
     Platform,
-    Keyboard
+    Keyboard, Alert
 } from 'react-native';
 
 import  {useEffect, useState} from 'react';
@@ -46,24 +46,49 @@ const Home=() =>{
     }, [])
 
 
-    const [max, setMax] =useState(0);
+    const [max, setMax] = useState(0);
+
+    const [moi,setMoi] = useState(null);
 
     const handleAddPerson = () =>{
-        if(isAdmin==true || max!=1) {
+
+        if(isAdmin==true ) {
+            if (person==null){
+                return alert("Please enter a name ")
+            }
             Keyboard.dismiss();
+
             setPersonItems([...personItems, person]);
             setPerson(null);
+
+        }
+        else if(max!=1) {
+            if (person==null){
+                return alert("Please enter a name ")
+            }
+            Keyboard.dismiss();
+            setMoi(person)
             setMax(1);
+            setPersonItems([...personItems, person]);
+            setPerson(null);
         }
 
 
     }
 
     const handleDeletePerson =(index) => {
-        if(isAdmin==true) {
+
+        if(isAdmin==true ) {
             let itemsCopy = [...personItems];
             itemsCopy.splice(index, 1);
             setPersonItems(itemsCopy);
+
+        }
+        else if ( moi!=null && personItems[index]== moi ){
+            let itemsCopy = [...personItems];
+            itemsCopy.splice(index, 1);
+            setPersonItems(itemsCopy);
+            setMax(0)
         }
     }
 
