@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
     Platform,
     Keyboard,
-    Button,
+    Button, Vibration,
 } from 'react-native';
 
 import  {useEffect, useState} from 'react';
@@ -76,7 +76,11 @@ const Home=() =>{
     const handleDeletePerson =(index) => {
 
         if(isAdmin==true ) {
+
             let itemsCopy = [...personItems];
+            if (itemsCopy[index]==moi){
+                Vibration.vibrate();
+            }
             itemsCopy.splice(index, 1);
             setPersonItems(itemsCopy);
 
