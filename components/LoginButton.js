@@ -11,7 +11,7 @@ const LoginButton = ()=>{
     return(
 
         <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.buttonLogin}>
-            <Text style={styles.buttonLoginText}>Login</Text>
+            <Text style={styles.buttonLoginText}>Admin</Text>
         </TouchableOpacity>
 
     )
@@ -23,24 +23,26 @@ const styles = StyleSheet.create({
 
     buttonLogin: {
 
-        position:"absolute",
-        top: 50,
-        right : 10,
+
+        position: 'absolute',
+        bottom : 40,
+
 
         backgroundColor : '#0782F9',
-        width: '25%',
+        width: '35%',
         padding: 15,
         borderRadius: 10,
+        height : 50,
 
 
         borderColor: '#0782F9',
         borderWidth: 2,
-        alignItems:'center',
+        alignItems : 'center',
     },
     buttonLoginText: {
         color : 'white',
         fontWeight: '700',
-        fontSize: 16,
+        fontSize: 14,
     },
 })
 

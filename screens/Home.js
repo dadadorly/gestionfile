@@ -8,7 +8,8 @@ import {
     TextInput,
     TouchableOpacity,
     Platform,
-    Keyboard, Alert
+    Keyboard,
+    Button,
 } from 'react-native';
 
 import  {useEffect, useState} from 'react';
@@ -26,7 +27,7 @@ const Home=() =>{
     const navigation = useNavigation()
 
 
-    const [person, setPerson]=useState();
+    const [person, setPerson]=useState(1);
     const [personItems, setPersonItems]= useState([]);
 
     const [isAdmin, setIsAdmin] =useState(false);
@@ -45,7 +46,7 @@ const Home=() =>{
         return unsubscribe
     }, [])
 
-
+    const [currentColor,setCurrentColor] = useState('#E8EAED');
     const [max, setMax] = useState(0);
 
     const [moi,setMoi] = useState(null);
@@ -53,24 +54,20 @@ const Home=() =>{
     const handleAddPerson = () =>{
 
         if(isAdmin==true ) {
-            if (person==null){
-                return alert("Please enter a name ")
-            }
-            Keyboard.dismiss();
+            setPerson(prevState => prevState+1)
+
 
             setPersonItems([...personItems, person]);
-            setPerson(null);
+
 
         }
         else if(max!=1) {
-            if (person==null){
-                return alert("Please enter a name ")
-            }
-            Keyboard.dismiss();
+            setPerson(prevState => prevState+1)
+
             setMoi(person)
             setMax(1);
             setPersonItems([...personItems, person]);
-            setPerson(null);
+            setCurrentColor('blue');
         }
 
 
@@ -120,11 +117,11 @@ const Home=() =>{
 
         <View style={styles.container}>
 
-            <Text style={styles.title}>Gestion de file</Text>
-            {renderLogin()}
+            <Text style={styles.title}>Queued in</Text>
+
             <ScrollView>
-                <View style={styles.personWrapper}>
-                    <View style={styles.items}>
+                <View style={[styles.personWrapper]}>
+                    <View style={[styles.items]}>
                         {
                             personItems.map((item,index)=>{
                                 return(
@@ -141,17 +138,17 @@ const Home=() =>{
             </ScrollView>
 
             <StatusBar style="auto"/>
-
+            {renderLogin()}
 
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.writePersonWrapper}
             >
-                <TextInput style={styles.input} placeholder={"Write a name"} value={person} onChangeText={text => setPerson(text)}/>
+                {/* <TextInput style={styles.input} placeholder={"Write a name"} value={person} onChangeText={text => setPerson(text)}/>*/}
 
                 <TouchableOpacity onPress={() => handleAddPerson()}>
                     <View style={styles.addWrapper}>
-                        <Text style={styles.addText}>+</Text>
+                        <Text style={styles.addText}>JOIN</Text>
                     </View>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
@@ -165,16 +162,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#E8EAED',
-        position : "relative"
+        position : "relative",
+        alignItems: "center",
     },
     title: {
         paddingTop: 60,
-        paddingLeft: 10,
+
         fontWeight: 'bold',
         fontSize: 24,
     },
     items: {
-
+    width : 350,
     },
     personWrapper: {
         paddingTop: 40,
@@ -184,11 +182,10 @@ const styles = StyleSheet.create({
     },
     writePersonWrapper: {
         position: 'absolute',
-        bottom: 60,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        bottom: 110,
+        justifyContent: 'center',
         alignItems: 'center'
+
     },
     input: {
         paddingVertical: 15,
@@ -200,39 +197,49 @@ const styles = StyleSheet.create({
         width: 250,
     },
     addWrapper:{
-        width: 60,
-        height: 60,
+
+
         backgroundColor: '#fff',
-        borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
+
+
+        width: 200,
+        padding: 15,
+        borderRadius: 20,
+
+        marginTop: 5,
+        borderColor: '#0782F9',
+        borderWidth: 2,
+
 
     },
     buttonLogin: {
 
-        position:"absolute",
-        top: 50,
-        right : 10,
+        position: 'absolute',
+        bottom : 40,
+
 
         backgroundColor : '#0782F9',
-        width: '25%',
+        width: '35%',
         padding: 15,
         borderRadius: 10,
+        height : 50,
 
 
         borderColor: '#0782F9',
         borderWidth: 2,
-        alignItems:'center',
+        alignItems : 'center',
     },
     buttonLoginText: {
         color : 'white',
         fontWeight: '700',
-        fontSize: 16,
+        fontSize: 14,
     },
     addText : {
         fontSize : 24,
+        fontWeight : '700',
+        color : '#0782F9',
     }
 
 });

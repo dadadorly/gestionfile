@@ -31,12 +31,12 @@ const Timer = ()=>{
         handleStart()
     },[])
     return(
-        <View>
+
 
             <View>
                 <Text style={styles.textTime}> {formatTime()}</Text>
             </View>
-        </View>
+
 
 
     )

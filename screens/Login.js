@@ -36,8 +36,7 @@ const Login = () => {
         auth.signInWithEmailAndPassword(email,password)
             .then(userCredentials =>{
                 const user = userCredentials.user;
-                console.log(user.email);
-                alert("Vous etes connecté");
+
             })
             .catch(error => alert(error.message))
     }

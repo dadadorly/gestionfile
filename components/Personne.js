@@ -7,6 +7,8 @@ import Timer from "./Timer";
 
 const Personne = (props)=>{
 
+
+
     return(
         <View style={styles.item}>
             <Text style={styles.itemText}>{props.text}</Text>
